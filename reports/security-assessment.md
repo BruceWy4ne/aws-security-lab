@@ -237,13 +237,10 @@ This confirms that external traffic can reach the instance when permitted by Sec
 
 ## Lessons Learned
 
-This project demonstrated how cloud security depends on multiple layers of controls rather than a single configuration.
+A few things stood out during this assessment that I didn't fully appreciate before doing it hands-on.
 
-Key takeaways:
+The Reachability Analyzer was more useful than I expected — instead of mentally tracing rules, it walks the actual path component by component and shows exactly where traffic is allowed or blocked. That's a much faster way to validate exposure than reading Security Group rules in isolation.
 
-- Security Groups and Network ACLs provide complementary protection layers.
-- Publicly accessible workloads should be minimized.
-- Monitoring and visibility are essential for incident response.
-- Network segmentation significantly reduces attack surface.
-- Reachability validation helps verify real-world exposure paths.
-- Secure cloud architecture requires both preventative and detective controls.
+The missing Flow Logs were also a reminder that detection gaps are easy to overlook when building an environment. The VPC looked functional from a routing perspective, but there was zero record of any traffic hitting it. In a real incident you'd have nothing to work with.
+
+The NACL situation was interesting — it's the default configuration and it passes all traffic, which means a lot of AWS environments are running with NACLs that provide no actual filtering. They're easy to forget because Security Groups handle most of the work, but that's exactly the wrong reason to leave them unconfigured.
