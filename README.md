@@ -1,5 +1,7 @@
 # AWS Security Lab
 
+Cloud security assessment of a custom AWS environment hosting OWASP Juice Shop, including network segmentation, exposure validation, monitoring review, and remediation planning.
+
 Designed and assessed a segmented AWS network environment. Built a custom VPC with public and private subnets, configured layered access controls, ran network reconnaissance, and produced a structured security findings report identifying six issues across exposure, access control, and visibility.
 
 ---
@@ -14,41 +16,6 @@ Designed and assessed a segmented AWS network environment. Built a custom VPC wi
 - Documented all findings with severity ratings, evidence screenshots, and specific remediation steps
 
 ---
-
-## Findings
-
-| ID | Severity | Finding |
-|----|----------|---------|
-| CRIT-01 | Critical | SSH (port 22) open to 0.0.0.0/0 — no source restriction |
-| CRIT-02 | Critical | Application running directly in public subnet — no ALB |
-| HIGH-01 | High | VPC Flow Logs disabled — no network traffic records exist |
-| HIGH-02 | High | No NAT Gateway — private subnet has no secure egress path |
-| HIGH-03 | High | All Security Group rules sourced to the full internet |
-| MED-01 | Medium | Default NACL allows all traffic — no subnet-level filtering |
-
-## Evidence
-
-### Security Group Configuration
-
-![Security Group](screenshots/05-security-group-inbound.png)
-
-### Nmap Validation
-
-![Nmap Scan](screenshots/09-nmap-scan.png)
-
-### Flow Logs Status
-
-![Flow Logs](screenshots/10-flow-logs-disabled.png)
-
-### Application Deployment
-
-![OWASP Juice Shop](screenshots/12-juiceshop-running.png)
-
-Full details with evidence → [`reports/security-assessment.md`](reports/security-assessment.md)  
-One-page summary → [`reports/executive-summary.md`](reports/executive-summary.md)
-
----
-
 ## Architecture
 
     Internet
@@ -77,12 +44,50 @@ Network ACL and Security Group details → [`architecture/vpc-topology.md`](arch
 
 ---
 
+## Evidence
+
+### Security Group Configuration
+
+![Security Group](screenshots/05-security-group-inbound.png)
+
+### Nmap Validation
+
+![Nmap Scan](screenshots/09-nmap-scan.png)
+
+### Flow Logs Status
+
+![Flow Logs](screenshots/10-flow-logs-disabled.png)
+
+### Application Deployment
+
+![OWASP Juice Shop](screenshots/12-juiceshop-running.png)
+
+Full details with evidence → [`reports/security-assessment.md`](reports/security-assessment.md)  
+One-page summary → [`reports/executive-summary.md`](reports/executive-summary.md)
+
+---
+## Findings
+
+| ID | Severity | Finding |
+|----|----------|---------|
+| CRIT-01 | Critical | SSH (port 22) accessible from the Internet |
+| CRIT-02 | Critical | Application directly exposed to the Internet |
+| HIGH-01 | High | VPC Flow Logs disabled |
+| HIGH-02 | High | Overly permissive Security Group rules |
+| MED-01 | Medium | Network ACL provides minimal security value |
+| LOW-01 | Low | Private subnet lacks outbound Internet connectivity |
+
+--- 
+
 ## Repository
 
-    ├── architecture/      VPC layout, subnet CIDRs, route tables, security controls
-    ├── reports/           Security assessment report and executive summary
-    ├── screenshots/       AWS console and Nmap evidence (12 screenshots)
-    └── scripts/           Python tools — findings diagram and flow log parser
+```text
+aws-security-lab/
+├── architecture/
+├── reports/
+├── screenshots/
+└── scripts/
+```
 
 ---
 
