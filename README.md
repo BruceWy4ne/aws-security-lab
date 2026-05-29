@@ -1,64 +1,42 @@
 # AWS Security Lab
 
-## Overview
+Designed and assessed a segmented AWS network environment. Built a custom
+VPC with public and private subnets, configured layered access controls,
+ran network reconnaissance, and produced a structured security findings
+report identifying six issues across exposure, access control, and visibility.
 
-This repository documents hands-on cloud security experiments performed using Amazon Web Services (AWS). The project focuses on secure network architecture design, traffic monitoring, access control configuration, and security assessment of cloud infrastructure.
+---
 
-## Objectives
+## What I Did
 
-* Design a secure AWS network architecture
-* Implement network segmentation using VPCs and subnets
-* Configure Security Groups and Network ACLs
-* Monitor network activity using VPC Flow Logs
-* Perform security assessment and network reconnaissance
-* Analyze cloud traffic and access patterns
+- Built a VPC (`10.0.0.0/16`) with separate public (`10.0.1.0/24`) and
+  private (`10.0.2.0/24`) subnets in us-east-1
+- Deployed an EC2 instance running OWASP Juice Shop and configured
+  Security Groups and Network ACLs
+- Used AWS Reachability Analyzer to map the network path from the
+  Internet Gateway to the EC2 instance
+- Ran Nmap (`-sV -p 22,80,443,3000`) against the public IP to confirm
+  open ports and identify running services
+- Reviewed VPC Flow Logs configuration, NAT Gateway setup, and NACL rules
+- Documented all findings with severity ratings, evidence screenshots,
+  and specific remediation steps
 
-## Technologies Used
+---
 
-* Amazon Web Services (AWS)
-* Amazon EC2
-* Amazon VPC
-* Security Groups
-* Network ACLs
-* NAT Gateway
-* VPC Flow Logs
-* Linux
-* Nmap
-* Python
+## Findings
 
-## Key Security Concepts
+| ID | Severity | Finding |
+|----|----------|---------|
+| CRIT-01 | Critical | SSH (port 22) open to 0.0.0.0/0 — no source restriction |
+| CRIT-02 | Critical | Application running directly in public subnet — no ALB |
+| HIGH-01 | High | VPC Flow Logs disabled — no network traffic records exist |
+| HIGH-02 | High | No NAT Gateway — private subnet has no secure egress path |
+| HIGH-03 | High | All Security Group rules sourced to the full internet |
+| MED-01 | Medium | Default NACL allows all traffic — no subnet-level filtering |
 
-* Network Segmentation
-* Defense in Depth
-* Least Privilege Access
-* Traffic Monitoring
-* Cloud Infrastructure Security
-* Network Reconnaissance
+Full details with evidence → [`reports/security-assessment.md`](reports/security-assessment.md)  
+One-page summary → [`reports/executive-summary.md`](reports/executive-summary.md)
 
-## Repository Structure
+---
 
-architecture/ → AWS architecture diagrams and topology
-
-screenshots/ → AWS console screenshots and security configurations
-
-reports/ → Project reports and analysis
-
-scripts/ → Supporting automation and analysis scripts
-
-## Skills Demonstrated
-
-* Cloud Security
-* AWS Networking
-* Security Monitoring
-* Traffic Analysis
-* Security Assessment
-* Linux Administration
-* Network Security
-
-## Author
-
-Rishi Solanki
-
-Master of Engineering in Cybersecurity Engineering
-
-University of Maryland
+## Architecture
