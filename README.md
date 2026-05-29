@@ -51,7 +51,7 @@ Network ACL and Security Group details → [`architecture/vpc-topology.md`](arch
 
     ├── architecture/      VPC layout, subnet CIDRs, route tables, security controls
     ├── reports/           Security assessment report and executive summary
-    ├── screenshots/       AWS console and Nmap evidence (13 screenshots)
+    ├── screenshots/       AWS console and Nmap evidence (12 screenshots)
     └── scripts/           Python tools — findings diagram and flow log parser
 
 ---
