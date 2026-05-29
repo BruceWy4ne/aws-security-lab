@@ -26,6 +26,24 @@ Designed and assessed a segmented AWS network environment. Built a custom VPC wi
 | HIGH-03 | High | All Security Group rules sourced to the full internet |
 | MED-01 | Medium | Default NACL allows all traffic — no subnet-level filtering |
 
+## Evidence
+
+### Security Group Configuration
+
+![Security Group](screenshots/05-security-group-inbound.png)
+
+### Nmap Validation
+
+![Nmap Scan](screenshots/09-nmap-scan.png)
+
+### Flow Logs Status
+
+![Flow Logs](screenshots/10-flow-logs-disabled.png)
+
+### Application Deployment
+
+![OWASP Juice Shop](screenshots/12-juiceshop-running.png)
+
 Full details with evidence → [`reports/security-assessment.md`](reports/security-assessment.md)  
 One-page summary → [`reports/executive-summary.md`](reports/executive-summary.md)
 
@@ -42,6 +60,18 @@ One-page summary → [`reports/executive-summary.md`](reports/executive-summary.
         │
     Private Subnet (10.0.2.0/24)
         └── [No NAT Gateway — no secure outbound path]
+
+### VPC Overview
+
+![VPC Overview](screenshots/01-vpc-overview.png)
+
+### Resource Map
+
+![Resource Map](screenshots/02-vpc-resource-map.png)
+
+### Reachability Analysis
+
+![Reachability Analyzer](screenshots/11-reachability-analyzer.png)
 
 Network ACL and Security Group details → [`architecture/vpc-topology.md`](architecture/vpc-topology.md)
 
